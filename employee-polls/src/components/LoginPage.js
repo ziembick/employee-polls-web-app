@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
-import { setAuthedUser } from '../actions/authedUser';
+import { _getUsers } from '../utils/_DATA';
 
 function LoginPage({ users, dispatch }) {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -20,7 +21,7 @@ function LoginPage({ users, dispatch }) {
     const user = users[selectedUser];
 
     if (user && user.password === password) {
-      dispatch(setAuthedUser(user));
+      dispatch(_getUsers(user));
     } else {
       alert('Invalid username or password');
     }

@@ -1,14 +1,15 @@
-import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { Route, Routes } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
+import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
+    <Provider>
+      <Routes>
         <Route exact path="/" component={LoginPage} />
-      </div>
-    </BrowserRouter>
+      </Routes>
+    </Provider>
   );
 }
 
