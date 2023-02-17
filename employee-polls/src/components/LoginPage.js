@@ -1,12 +1,12 @@
-import React from 'react';
-import { useState } from 'react';
-import { connect } from 'react-redux';
-import { _getUsers } from '../utils/_DATA';
-import { loginUser } from '../actions/authedUser';
+import React from "react";
+import { useState } from "react";
+import { connect } from "react-redux";
+import { _getUsers } from "../utils/_DATA";
+import { loginUser } from "../actions/authedUser";
 
 function LoginPage({ users, dispatch }) {
   const [selectedUser, setSelectedUser] = useState(null);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
 
   const handleUserChange = (e) => {
     setSelectedUser(e.target.value);
@@ -22,9 +22,9 @@ function LoginPage({ users, dispatch }) {
     const user = users[selectedUser];
 
     if (user && user.password === password) {
-      dispatch(_getUsers(user));
+      dispatch(loginUser(user.id));
     } else {
-      alert('Invalid username or password');
+      alert("Invalid username or password");
     }
   };
 
@@ -60,8 +60,11 @@ function LoginPage({ users, dispatch }) {
   );
 }
 
-function mapStateToProps({ users }) {
-  return { users };
+function mapStateToProps({ users, authedUser }) {
+  return {
+    users,
+    authedUser,
+  };
 }
 
 export default connect(mapStateToProps)(LoginPage);
