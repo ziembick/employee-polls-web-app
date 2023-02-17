@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { _getUsers } from '../utils/_DATA';
+import { loginUser } from '../actions/authedUser';
 
 function LoginPage({ users, dispatch }) {
   const [selectedUser, setSelectedUser] = useState(null);
