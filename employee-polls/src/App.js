@@ -5,11 +5,7 @@ import "./App.css";
 
 function App() {
   return (
-    <Provider>
-      <Routes>
-        <Route exact path="/" component={LoginPage} />
-      </Routes>
-    </Provider>
+    <LoginPage />
   );
 }
 
