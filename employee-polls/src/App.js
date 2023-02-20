@@ -6,7 +6,9 @@ import HomePage from "./components/HomePage";
 
 function App() {
   return (
-    <LoginPage />
+    <Routes>
+      <Route path="/" element={<LoginPage />}/>
+    </Routes>
   );
 }
 
