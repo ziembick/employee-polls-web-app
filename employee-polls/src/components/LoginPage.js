@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { loginUser } from '../actions/authedUser';
 
 function LoginPage({ users, dispatch }) {
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [username, setUsername] = useState(null);
   const [password, setPassword] = useState('');
 
   const handleUserChange = (e) => {
-    setSelectedUser(e.target.value);
+    setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
