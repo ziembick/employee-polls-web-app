@@ -2,29 +2,18 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authedUser";
 import { Navigate } from "react-router-dom";
-import  {users} from "../utils/_DATA";
+import { users } from "../utils/_DATA";
 
 function LoginPage({ dispatch, isAuthenticated }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const [selectedUser, setSelectedUser] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const user = Object.values(users).find((u) => u.id === username);
-
-    if (user && user.password === password) {
-      dispatch(loginUser(user.id));
+    if (selectedUser) {
+      dispatch(loginUser(selectedUser));
     } else {
-      alert("Invalid username or password");
+      alert("Please select a user");
     }
   };
 
@@ -37,24 +26,15 @@ function LoginPage({ dispatch, isAuthenticated }) {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username-input">Username:</label>
-          <input
-            type="text"
-            id="username-input"
-            value={username}
-            onChange={handleUsernameChange}
-          />
+          <label htmlFor="user-select">Select a user:</label>
+          <select id="user-select" value={selectedUser} onChange={(e) => setSelectedUser(e.target.value)}>
+            <option value="">Select user</option>
+            {Object.values(users).map((user) => (
+              <option key={user.id} value={user.id}>{user.name}</option>
+            ))}
+          </select>
         </div>
-        <div>
-          <label htmlFor="password-input">Password:</label>
-          <input
-            type="password"
-            id="password-input"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </div>
-        <button type="submit" disabled={!username || !password}>
+        <button type="submit" disabled={!selectedUser}>
           Login
         </button>
       </form>
@@ -62,7 +42,7 @@ function LoginPage({ dispatch, isAuthenticated }) {
   );
 }
 
-function mapStateToProps({  authedUser }) {
+function mapStateToProps({ authedUser }) {
   return { isAuthenticated: authedUser !== null };
 }
 
