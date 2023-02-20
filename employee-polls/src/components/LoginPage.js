@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { loginUser } from '../actions/authedUser';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { loginUser } from "../actions/authedUser";
+import { Redirect } from "react-router-dom";
 
 function LoginPage({ users, dispatch }) {
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleUserChange = (e) => {
+  const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
 
@@ -17,12 +18,12 @@ function LoginPage({ users, dispatch }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const user = users[selectedUser];
+    const user = Object.values(users).find((u) => u.id === username);
 
     if (user && user.password === password) {
       dispatch(loginUser(user.id));
     } else {
-      alert('Invalid username or password');
+      alert("Invalid username or password");
     }
   };
 
@@ -31,15 +32,13 @@ function LoginPage({ users, dispatch }) {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="user-select">Select a user:</label>
-          <select id="user-select" onChange={handleUserChange}>
-            <option value="">Select a user...</option>
-            {Object.keys(users).map((userId) => (
-              <option key={userId} value={userId}>
-                {users[userId].name}
-              </option>
-            ))}
-          </select>
+          <label htmlFor="username-input">Username:</label>
+          <input
+            type="text"
+            id="username-input"
+            value={username}
+            onChange={handleUsernameChange}
+          />
         </div>
         <div>
           <label htmlFor="password-input">Password:</label>
@@ -50,7 +49,7 @@ function LoginPage({ users, dispatch }) {
             onChange={handlePasswordChange}
           />
         </div>
-        <button type="submit" disabled={!selectedUser || !password}>
+        <button type="submit" disabled={!username || !password}>
           Login
         </button>
       </form>
