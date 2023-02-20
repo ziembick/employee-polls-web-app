@@ -6,14 +6,25 @@ import { users } from "../utils/_DATA";
 
 function LoginPage({ dispatch, isAuthenticated }) {
   const [selectedUser, setSelectedUser] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleUserChange = (e) => {
+    setSelectedUser(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (selectedUser) {
-      dispatch(loginUser(selectedUser));
+    const user = users[selectedUser];
+
+    if (user && user.password === password) {
+      dispatch(loginUser(user.id));
     } else {
-      alert("Please select a user");
+      alert("Invalid username or password");
     }
   };
 
@@ -26,15 +37,24 @@ function LoginPage({ dispatch, isAuthenticated }) {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="user-select">Select a user:</label>
-          <select id="user-select" value={selectedUser} onChange={(e) => setSelectedUser(e.target.value)}>
-            <option value="">Select user</option>
-            {Object.values(users).map((user) => (
+          <label htmlFor="user-select">Select user:</label>
+          <select id="user-select" value={selectedUser} onChange={handleUserChange}>
+            <option value="" disabled>Select user</option>
+            {Object.values(users).map(user => (
               <option key={user.id} value={user.id}>{user.name}</option>
             ))}
           </select>
         </div>
-        <button type="submit" disabled={!selectedUser}>
+        <div>
+          <label htmlFor="password-input">Password:</label>
+          <input
+            type="password"
+            id="password-input"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </div>
+        <button type="submit" disabled={!selectedUser || !password}>
           Login
         </button>
       </form>
@@ -47,4 +67,3 @@ function mapStateToProps({ authedUser }) {
 }
 
 export default connect(mapStateToProps)(LoginPage);
-
