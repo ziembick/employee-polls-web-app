@@ -47,7 +47,7 @@ export let users = {
   }
 }
 
-let questions = {
+export let questions = {
   "8xf0y6ziyjabvozdd253nd": {
     id: '8xf0y6ziyjabvozdd253nd',
     author: 'sarahedo',

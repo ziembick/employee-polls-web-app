@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { questions } from "../utils/_DATA";
 import { getUnansweredQuestions, getAnsweredQuestions } from "../utils/helpers";
 
-function HomePage({ authedUser, questions }) {
+function HomePage({ authedUser}) {
   const [showUnanswered, setShowUnanswered] = useState(true);
 
   const handleToggle = () => {
@@ -55,7 +56,7 @@ function HomePage({ authedUser, questions }) {
   );
 }
 
-function mapStateToProps({ authedUser, questions }) {
+function mapStateToProps({ authedUser }) {
   return {
     authedUser,
     questions: Object.values(questions),
