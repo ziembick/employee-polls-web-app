@@ -36,7 +36,7 @@ function HomePage({ authedUser}) {
           </li>
         </ul>
       </nav>
-      <h2>Welcome, {authedUser.name}</h2>
+      <h2>Welcome, </h2>
       <div>
         <button onClick={handleToggle}>
           {showUnanswered ? "View Answered" : "View Unanswered"}
