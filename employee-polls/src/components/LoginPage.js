@@ -1,9 +1,26 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authedUser";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import HomePage from "./HomePage";
 
-function LoginPage({ users, dispatch }) {
+function LoginPage({ dispatch, isAuthenticated }) {
+  let users = {
+    sarahedo: {
+      id: "sarahedo",
+      password: "password123",
+      name: "Sarah Edo",
+      avatarURL: null,
+      answers: {
+        "8xf0y6ziyjabvozdd253nd": "optionOne",
+        "6ni6ok3ym7mf1p33lnez": "optionOne",
+        am8ehyc8byjqgar0jgpub9: "optionTwo",
+        loxhs1bqm25b708cmbf3g: "optionTwo",
+      },
+      questions: ["8xf0y6ziyjabvozdd253nd", "am8ehyc8byjqgar0jgpub9"],
+    },
+  };
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,6 +43,10 @@ function LoginPage({ users, dispatch }) {
       alert("Invalid username or password");
     }
   };
+
+  if (isAuthenticated) {
+    return <Navigate to={HomePage} />;
+  }
 
   return (
     <div>
@@ -57,8 +78,8 @@ function LoginPage({ users, dispatch }) {
   );
 }
 
-function mapStateToProps({ users }) {
-  return { users };
+function mapStateToProps({ users, authedUser }) {
+  return { users, isAuthenticated: authedUser !== null };
 }
 
 export default connect(mapStateToProps)(LoginPage);
