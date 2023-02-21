@@ -31,8 +31,8 @@ function HomePage({ authedUser }) {
           <li key={question.id}>
             <div>{question.author} asks:</div>
             <div>
-              Would you rather {question.optionOne.text} or{" "}
-              {question.optionTwo.text}?
+              Would you rather <button>{question.optionOne.text}</button> or{" "}
+              <button>{question.optionTwo.text}</button>?
             </div>
             <div>Category: {showUnanswered ? "Unanswered" : "Answered"}</div>
             <NavLink to={`/questions/${question.id}`}>View Details</NavLink>
