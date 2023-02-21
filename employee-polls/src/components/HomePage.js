@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { questions, users } from "../utils/_DATA";
+import { questions } from "../utils/_DATA";
 
 import { getUnansweredQuestions, getAnsweredQuestions } from "../utils/helpers";
 import Nav from "./Nav";
