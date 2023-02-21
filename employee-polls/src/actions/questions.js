@@ -8,3 +8,11 @@ export function receiveQuestions(questions) {
         questions,
     }
 }
+
+export function handleInitialDataA() {
+    return (dispatch) => {
+        return _getQuestions().then((questions) => {
+            dispatch(receiveQuestions(questions))
+        })
+    }
+}
